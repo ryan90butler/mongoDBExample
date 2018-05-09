@@ -25,6 +25,24 @@ const userSchema = mongoose.Schema({
   dateAdded: {type: Date, default: Date.now}
 })
 
+const userModel = mongoose.model('Users', userSchema);
+
+app.post(`/api/newUser`, (req, res)=>{
+  const me = new userModel({
+    name: "Ryan",
+    age: 27,
+    height: "6 0",
+    abc: `I'm an example that the key names don't matter`,
+    array: ['superman', 'batman']
+  })
+  me.save((err)=>{
+    if(err){
+      console.log(err)
+    }
+  });
+  res.send('this worked');
+})
+
 
 const port = process.env.PORT || 5050;
 app.listen(port, ()=>{
